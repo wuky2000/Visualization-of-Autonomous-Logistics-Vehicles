@@ -25,6 +25,8 @@
 
 本项目无需安装依赖或构建。已配置 `.github/workflows/pages.yml`，推送到 `main` 会部署网页和下载文件。
 
+发布后工作流会检查在线页面、离线 HTML 和 ZIP 均能访问，并逐字节核对发布内容。
+
 首次使用时，在仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**，随后在 Actions 中运行 **Publish product website**。也可选择 **Deploy from a branch → main → /(root)**，直接发布仓库根目录。
 
 实际在线地址与发布状态以 **Settings → Pages** 和 **Actions** 的结果为准。

@@ -36,3 +36,13 @@ jobs:
       - name: Publish
         id: deployment
         uses: actions/deploy-pages@v5
+      - name: Verify live website and downloads
+        env:
+          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          curl --fail --location --silent --show-error --retry 10 --retry-delay 3 --retry-all-errors "${SITE_URL%/}/" --output /tmp/published-index.html
+          cmp index.html /tmp/published-index.html
+          curl --fail --location --silent --show-error --retry 10 --retry-delay 3 --retry-all-errors "${SITE_URL%/}/downloads/logistics_vehicle_website.html" --output /tmp/published-offline.html
+          cmp downloads/logistics_vehicle_website.html /tmp/published-offline.html
+          curl --fail --location --silent --show-error --retry 10 --retry-delay 3 --retry-all-errors "${SITE_URL%/}/downloads/logistics_vehicle_website.zip" --output /tmp/published-offline.zip
+          cmp downloads/logistics_vehicle_website.zip /tmp/published-offline.zip
